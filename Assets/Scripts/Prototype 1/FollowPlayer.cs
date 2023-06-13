@@ -6,7 +6,10 @@ public class FollowPlayer : MonoBehaviour
 {   
     // Private variables
     [SerializeField] private GameObject player;
-    private Vector3 offset = new Vector3(0, 5, -7);
+    private Vector3 thirdPersonOffset = new Vector3(0, 5, -7);
+    private Vector3 firstPersonOffset = new Vector3(0, 2.32f, -0.04f);
+    private float thirdPersonRotationX = 18.111f;
+    private bool isThirdPersonMode = true;
 
     // Start is called before the first frame update
     void Start()
@@ -17,7 +20,18 @@ public class FollowPlayer : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {   
-        // Offset the camera behind the player by adding to the player's position
-        transform.position = player.transform.position + offset;    
+        if (Input.GetKeyDown(KeyCode.V)) isThirdPersonMode = !isThirdPersonMode;
+
+        // Offset the camera behind/in front the player by adding to the player's position
+        if (isThirdPersonMode)
+        {
+            transform.position = player.transform.position + thirdPersonOffset;
+            transform.eulerAngles = Vector3.right * thirdPersonRotationX;
+        }
+        else
+        {
+            transform.position = player.transform.position + firstPersonOffset;
+            transform.eulerAngles = player.transform.eulerAngles;
+        }
     }
 }
