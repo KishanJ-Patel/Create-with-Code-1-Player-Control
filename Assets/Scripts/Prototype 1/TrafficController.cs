@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class TrafficController : MonoBehaviour
 {
-    [SerializeField] private GameObject player;
+    [SerializeField] private GameObject playerOne;
+    [SerializeField] private GameObject playerTwo;
     [SerializeField] private float speed;
     [SerializeField] private float triggerDistance;
 
@@ -17,6 +18,7 @@ public class TrafficController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {   
-        if (player.transform.position.z >= triggerDistance) transform.Translate(Vector3.forward * Time.deltaTime * speed);
+        if (playerOne.transform.position.z >= triggerDistance || playerTwo.transform.position.z >= triggerDistance)
+                transform.Translate(Vector3.forward * Time.deltaTime * speed);
     }
 }
